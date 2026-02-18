@@ -7,3 +7,6 @@ httpx>=0.24.0
 # HTML parsing and content extraction
 beautifulsoup4>=4.12.0
 lxml>=4.9.0
+
+# Environment variable loading
+python-dotenv>=1.0.0

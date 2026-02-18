@@ -167,8 +167,15 @@ class ResearchResult:
 ### Custom SearXNG URL
 
 ```python
-async with SearxngClient(base_url="http://192.168.1.100:8080") as client:
+async with SearxngClient(base_url="http://<your-server-ip>:8080") as client:
     results = await client.search("query")
+```
+
+Or set `SEARXNG_BASE_URL` in your `.env` file and `SearxngClient()` will pick it up automatically:
+
+```ini
+# .env
+SEARXNG_BASE_URL=http://<your-server-ip>:8080
 ```
 
 ### Custom Search Engines

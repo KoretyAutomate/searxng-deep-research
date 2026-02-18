@@ -13,6 +13,7 @@ License: MIT
 
 import asyncio
 import logging
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
@@ -20,6 +21,9 @@ from urllib.parse import urljoin, urlparse
 
 import httpx
 from bs4 import BeautifulSoup, Tag
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -80,7 +84,7 @@ class SearxngClient:
 
     def __init__(
         self,
-        base_url: str = "http://localhost:8080",
+        base_url: str = os.getenv("SEARXNG_BASE_URL", "http://localhost:8080"),
         timeout: float = DEFAULT_TIMEOUT
     ):
         """
@@ -468,7 +472,7 @@ async def main():
         is_connected = await searxng_client.validate_connection()
 
         if not is_connected:
-            print("❌ Error: Cannot connect to SearXNG at http://localhost:8080")
+            print(f"❌ Error: Cannot connect to SearXNG at {searxng_client.base_url}")
             print("\nMake sure SearXNG is running. Start it with:")
             print("docker run -d --name searxng -p 8080:8080 searxng/searxng:latest")
             return
